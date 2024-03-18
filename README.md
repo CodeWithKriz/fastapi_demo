@@ -24,6 +24,14 @@
 * alembic revision --autogenerate -m "revision commit description"
 * alembic upgrade head
 
+## Docker Run command
+* run container
+  - `docker-compose -f docker-compose-dev.yml up --build`
+* run container on daemon
+  - `docker-compose -f docker-compose-dev.yml up -d`
+* execute alembic upgrade
+  - `docker-compose -f docker-compose-dev.yml exec api alembic upgrade head`
+
 # APIs
 ![image](https://github.com/CodeWithKriz/fastapi_demo/assets/66562899/e6902441-f9e7-4955-a73c-6f0fc3a354b8)
 ![image](https://github.com/CodeWithKriz/fastapi_demo/assets/66562899/2ea7971f-7839-4107-b9af-523c475c7e86)
