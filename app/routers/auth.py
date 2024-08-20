@@ -7,26 +7,26 @@ from ..database import get_db
 
 router = APIRouter(prefix="/auth")
 
-@router.post("/token", response_model=schemas.AccessToken)
+@router.post("/", response_model=schemas.AccessToken)
 # def generate_token(credentials: schemas.UserLogin, db: Session = Depends(get_db)):
 def generate_token(credentials: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     cred_query = (
         db.query(models.UserModel)
         .filter(
-            (models.UserModel.username == credentials.username) | 
-            (models.UserModel.email == credentials.username)
+            (models.UserModel.username == credentials.username.lower()) | 
+            (models.UserModel.email == credentials.username.lower())
         )
     )
     user = cred_query.first()
     if not user:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail=f"invalid credentials!"
+            detail=f"invalid username!"
         )
     if not utils.verify_password(password=credentials.password, hashed_password=user.hashed_password):
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail=f"invalid credentials!"
+            detail=f"invalid password!"
         )
     access_token = oauth2.create_access_token(data={"user_id": user.id})
     return {"access_token": access_token, "token_type": "bearer"}

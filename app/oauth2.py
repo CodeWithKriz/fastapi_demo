@@ -8,7 +8,7 @@ from . import schemas, models
 from .database import get_db
 from .config import settings
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth")
 
 def return_credential_exception():
     return HTTPException(

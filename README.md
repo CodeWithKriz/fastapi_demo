@@ -13,6 +13,7 @@
 * pip install "passlib[bcrypt]"
 * pip install "python-jose[cryptography]"
 * pip install alembic
+* pip install pytest
 
 ## Alembic DB migration
 * alembic init /<alembic-dir>
@@ -23,6 +24,15 @@
   - `target_metadata = Base.metadata`
 * alembic revision --autogenerate -m "revision commit description"
 * alembic upgrade head
+
+## Environment Variables
+* database_url
+* test_db_url
+* secret_key
+* algorithm (`HS256` preferred)
+* access_token_expire_minutes
+* environment
+* allowed_origins
 
 # APIs
 ![image](https://github.com/CodeWithKriz/fastapi_demo/assets/66562899/e6902441-f9e7-4955-a73c-6f0fc3a354b8)

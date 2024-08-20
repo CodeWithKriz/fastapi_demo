@@ -1,5 +1,5 @@
 from datetime import datetime
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Enum
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, LargeBinary, Enum
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.expression import text
 from sqlalchemy.sql.sqltypes import TIMESTAMP
@@ -37,8 +37,21 @@ class PostModel(Base):
     owner_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     owner = relationship("UserModel", back_populates="posts")
 
+    post_medias = relationship("PostMediaModel", back_populates="post", cascade="all, delete-orphan", lazy=True)
     post_votes = relationship("PostVoteModel", back_populates="post", cascade="all, delete-orphan", lazy=True)
     post_comments = relationship("PostCommentModel", back_populates="post", cascade="all, delete-orphan", lazy=True)
+
+class PostMediaModel(Base):
+    __tablename__ = "post_medias"
+
+    id = Column(Integer, primary_key=True)
+    muid = Column(Integer, nullable=False, unique=True)
+
+    media = Column(LargeBinary)
+    media_type = Column(String, nullable=False)
+
+    post_id = Column(Integer, ForeignKey("posts.id", ondelete="CASCADE"), nullable=False)
+    post = relationship("PostModel", back_populates="post_medias")
 
 class PostVoteModel(Base):
     __tablename__ = "post_votes"
@@ -56,6 +69,7 @@ class PostCommentModel(Base):
     __tablename__ = "post_comments"
 
     id = Column(Integer, primary_key=True)
+    cuid = Column(Integer, nullable=False, unique=True)
 
     comment = Column(String, nullable=True)
 
