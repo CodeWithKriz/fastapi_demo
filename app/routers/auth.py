@@ -10,9 +10,6 @@ router = APIRouter(prefix="/auth")
 @router.post("/", response_model=schemas.AccessToken)
 # def generate_token(credentials: schemas.UserLogin, db: Session = Depends(get_db)):
 def generate_token(credentials: schemas.OAuth2PasswordRequestFormExtended = Depends(), db: Session = Depends(get_db)):
-    print(credentials.username, credentials.password)
-    print(credentials.client_id, credentials.client_secret)
-    print(credentials.grant_type, credentials.scopes)
     if credentials.username and credentials.password:
         cred_query = (
             db.query(models.UserModel)
