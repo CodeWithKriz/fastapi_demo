@@ -86,7 +86,7 @@ def test_missing_fields(client, new_user_data, missing_field):
         },
         "value_error",
         "email",
-        "value is not a valid email address: The email address is not valid. It must have exactly one @-sign."
+        "value is not a valid email address: An email address must have an @-sign."
     ),
     (
         {

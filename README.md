@@ -1,8 +1,8 @@
 # fastapi_demo
 
 ## Virtual environment
-* python3 -m venv venv
-* source venv/bin/activate
+* python3 -m venv ${venv}
+* source ${venv}/bin/activate
 * deactivate
 
 ## Run command
@@ -16,7 +16,7 @@
 * pip install pytest
 
 ## Alembic DB migration
-* alembic init /<alembic-dir>
+* alembic init ${alembic-dir}/
   - import the following modules
   - `from app.models import Base`
   - `from app.config import settings`
@@ -39,3 +39,6 @@
 ![image](https://github.com/user-attachments/assets/c238d89e-5bc7-4d70-a926-80f0eec06760)
 ![image](https://github.com/user-attachments/assets/7fdca465-06e8-4ffb-88ca-b662abbbd6f1)
 ![image](https://github.com/user-attachments/assets/72f942ae-6382-4063-96c4-2ab43755102a)
+
+# Useful Links
+* [adding-a-new-ssh-key-to-your-github-account](https://docs.github.com/en/enterprise-server@3.10/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)

@@ -3,6 +3,7 @@ from datetime import datetime
 from pydantic import BaseModel, Field, EmailStr, ConfigDict
 from typing import Optional, Literal, List
 from fastapi import UploadFile, File, Form
+from fastapi.security import OAuth2PasswordRequestForm
 
 # User Schemas
 
@@ -144,6 +145,20 @@ class UpdatePost(BaseModel):
         return cls(title=title, description=description)
 
 # Login Schemas
+
+class OAuth2PasswordRequestFormExtended(OAuth2PasswordRequestForm):
+    def __init__(
+        self,
+        grant_type: str = Form("password", description="Grant type"),
+        username: str = Form(None, description="Username"),
+        password: str = Form(None, description="Password"),
+        scope: str = Form("", description="Auth Scope"),
+        client_id: str = Form(None, description="Client ID"),
+        client_secret: str = Form(None, description="Client Secret"),
+    ):
+        super().__init__(grant_type=grant_type, username=username, password=password, scope=scope)
+        self.client_id = client_id
+        self.client_secret = client_secret
 
 class UserLogin(BaseModel):
     username: str
